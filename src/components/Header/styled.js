@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-import * as C from '../../commons/colors';
+import {
+  mainColor
+} from '../../commons/colors';
 
 export const Header = styled.header`
   grid-area: header;
@@ -29,7 +31,7 @@ export const Input = styled.input`
   font-size: 1em;
 
   &:focus {
-    border: solid 1px ${C.mainColor};
+    border: solid 1px ${mainColor};
   }
 `;
 
@@ -38,7 +40,7 @@ export const Button = styled.button`
   height: 40px;
   width: 150px;
   box-sizing: border-box;
-  background: ${C.mainColor};
+  background: ${mainColor};
   border: none;
   font-size: 1em;
 

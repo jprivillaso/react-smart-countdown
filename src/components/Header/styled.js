@@ -21,7 +21,7 @@ export const Text = styled.p`
 `;
 
 export const Input = styled.input`
-  height: 40px;
+  height: 50px;
   width: 150px;
   margin: 1em;
   box-sizing: border-box;
@@ -37,7 +37,7 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   margin: 1em;
-  height: 40px;
+  height: 50px;
   width: 150px;
   box-sizing: border-box;
   background: ${mainColor};

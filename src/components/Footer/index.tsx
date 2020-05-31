@@ -1,11 +1,25 @@
 import React from 'react';
 
 import * as S from './styled';
+import {
+  Horizontal
+} from '../../commons/styled';
 
 function Footer() {
   return (
     <S.Footer>
-      Footer
+      <Horizontal>
+        <S.SpeedControl className="active">
+          <S.Text
+          > 1X </S.Text>
+        </S.SpeedControl>
+        <S.SpeedControl>
+          <S.Text>1.5X</S.Text>
+        </S.SpeedControl>
+        <S.SpeedControl>
+          <S.Text>2X</S.Text>
+        </S.SpeedControl>
+      </Horizontal>
     </S.Footer>
   );
 }

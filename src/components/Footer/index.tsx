@@ -9,9 +9,8 @@ function Footer() {
   return (
     <S.Footer>
       <Horizontal>
-        <S.SpeedControl>
+        <S.SpeedControl className="active">
           <S.Text
-            class="active"
           > 1X </S.Text>
         </S.SpeedControl>
         <S.SpeedControl>

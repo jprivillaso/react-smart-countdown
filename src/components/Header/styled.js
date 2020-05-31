@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import {
-  mainColor, secondaryColor
+  mainColor
 } from '../../commons/colors';
 
 export const Header = styled.header`

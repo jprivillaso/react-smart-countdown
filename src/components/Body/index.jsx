@@ -6,11 +6,11 @@ import { UserConsumer } from '../../state/context';
 function App() {
   return (
     <UserConsumer>
-      {({ countdownStatus }) => {
+      {({ countdownValue }) => {
         return (
           <S.Body>
             <S.InfoText />
-            <S.Time>{ countdownStatus || '--:--' }</S.Time>
+            <S.Time>{ countdownValue || '--:--' }</S.Time>
             <S.PauseIcon />
           </S.Body>
         )

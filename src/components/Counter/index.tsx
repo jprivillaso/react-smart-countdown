@@ -5,14 +5,20 @@ import Body from '../Body';
 import Footer from '../Footer';
 
 import * as S from './styled';
+import { UserProvider } from '../../hooks/useContext';
+import { useCountdown } from '../../hooks/useCountdown';
 
 function App() {
+  const countdown = useCountdown();
+
   return (
-    <S.Main>
-      <Header />
-      <Body />
-      <Footer />
-    </S.Main>
+    <UserProvider value={countdown}>
+      <S.Main>
+        <Header />
+        <Body />
+        <Footer />
+      </S.Main>
+    </UserProvider>
   );
 }
 

@@ -1,14 +1,21 @@
 import React from 'react';
 
 import * as S from './styled';
+import { UserConsumer } from '../../hooks/useContext';
 
 function App() {
   return (
-    <S.Body>
-      <S.InfoText />
-      <S.Time>02:30</S.Time>
-      <S.PauseIcon />
-    </S.Body>
+    <UserConsumer>
+      {({ countdown }) => {
+        return (
+          <S.Body>
+            <S.InfoText />
+            <S.Time>{ countdown ? 'T' : 'F' }</S.Time>
+            <S.PauseIcon />
+          </S.Body>
+        )
+      }}
+    </UserConsumer>
   );
 }
 

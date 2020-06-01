@@ -1,8 +1,18 @@
 import React from 'react'
 
-const UserContext = React.createContext({});
+export interface CountdownContext {
+  countdown: boolean;
+  setCurrentCountdown: (currentCountdown: boolean) => void;
+}
 
-export const UserProvider = UserContext.Provider
-export const UserConsumer = UserContext.Consumer
+const initialContext = {
+  countdown: false,
+  setCurrentCountdown: () => {}
+};
 
-export default UserContext
+const UserContext = React.createContext<CountdownContext>(initialContext);
+
+export const UserProvider = UserContext.Provider;
+export const UserConsumer = UserContext.Consumer;
+
+export default UserContext;

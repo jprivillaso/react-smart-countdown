@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import * as S from './styled';
 import { initialTime } from '../../state';
+import UserContext from '../../hooks/useContext';
 
 function Header() {
   const [time, setTime] = useState(initialTime);
@@ -9,6 +10,13 @@ function Header() {
   const updateTime = (event: React.SyntheticEvent<HTMLInputElement>) => {
     const value: string = event.currentTarget.value;
     setTime(value);
+  }
+
+  const { countdown, setCurrentCountdown } = useContext(UserContext);
+
+  const startCountdown = () => {
+    setCurrentCountdown(true);
+    console.log('new countdown', countdown);
   }
 
   return (
@@ -24,7 +32,7 @@ function Header() {
             }
           ></S.Input>
           <S.Button
-            onClick={() => console.log('asd')}
+            onClick={() => startCountdown()}
           >Start</S.Button>
         </div>
       </S.Vertical>

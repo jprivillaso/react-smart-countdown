@@ -4,15 +4,14 @@ import Swal from 'sweetalert2'
 import * as S from './styled';
 import { handleInterval } from './interval';
 
-import UserContext, { CountdownValueContext } from '../../state/context';
+import UserContext from '../../state/context';
 import { isInputValid } from '../../commons/validateUserInput';
 
 function Header() {
-  const {
-    countdownValue,
-    setCurrentValue
-  } = useContext(UserContext) as CountdownValueContext;
+  // shared state
+  const { countdownValue, setCurrentValue } = useContext(UserContext);
 
+  // local state
   const [ started, setStarted ] = useState(false);
   const [ time, setTime ] = useState('');
 
@@ -25,7 +24,7 @@ function Header() {
     );
 
     return () => clearInterval(interval);
-  }, [countdownValue, setCurrentValue, started]);
+  }, [ countdownValue, setCurrentValue, started ]);
 
   const startCountdown = () => {
     if (isInputValid(time)) {
@@ -47,9 +46,9 @@ function Header() {
         <div>
           <S.Input
             placeholder="02:30"
-            value={time || ''}
+            value={ time || '' }
             onChange={
-              (e: React.SyntheticEvent<HTMLInputElement>) => setTime(`${e.currentTarget.value}`)
+              (e: React.SyntheticEvent<HTMLInputElement>) => setTime(`${ e.currentTarget.value }`)
             }
           ></S.Input>
           <S.Button

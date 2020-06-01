@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'styled-media-query';
 
 import {
   mainColor
@@ -22,8 +23,8 @@ export const Text = styled.p`
 
 export const Input = styled.input`
   height: 50px;
-  width: 150px;
-  margin: 1em;
+  width: 8em;
+  margin: 0 1em;
   box-sizing: border-box;
   background: white;
   border: solid 1px #888888;
@@ -33,12 +34,16 @@ export const Input = styled.input`
   &:focus {
     border: solid 1px ${mainColor};
   }
+
+  ${media.lessThan("small")`
+    width: 5em;
+  `}
 `;
 
 export const Button = styled.button`
-  margin: 1em;
+  margin: 0 1em;
   height: 50px;
-  width: 150px;
+  width: 8em;
   box-sizing: border-box;
   background: ${mainColor};
   border: none;
@@ -48,4 +53,8 @@ export const Button = styled.button`
     opacity: 0.7;
     cursor: pointer;
   }
+
+  ${media.lessThan("small")`
+    width: 5em;
+  `}
 `;

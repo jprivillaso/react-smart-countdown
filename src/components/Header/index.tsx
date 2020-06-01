@@ -1,22 +1,36 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
+import Swal from 'sweetalert2'
 
 import * as S from './styled';
-import { initialTime } from '../../state';
-import UserContext from '../../hooks/useContext';
+import UserContext, { CountdownStatusContext, CountdownValueContext } from '../../state/context';
+
+const MM_SS_REGEX = /^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d))$/;
 
 function Header() {
-  const [time, setTime] = useState(initialTime);
+  const { setCurrentStatus } = useContext(UserContext) as CountdownStatusContext;
+  const {
+    countdownValue,
+    setCurrentValue
+  } = useContext(UserContext) as CountdownValueContext;
 
   const updateTime = (event: React.SyntheticEvent<HTMLInputElement>) => {
     const value: string = event.currentTarget.value;
-    setTime(value);
+    setCurrentValue(value);
   }
 
-  const { countdown, setCurrentCountdown } = useContext(UserContext);
+  const isInputValid = (currentValue: string): boolean =>
+    MM_SS_REGEX.test(currentValue) || true
 
   const startCountdown = () => {
-    setCurrentCountdown(true);
-    console.log('new countdown', countdown);
+    if (isInputValid(countdownValue)) {
+      setCurrentStatus(true);
+    } else {
+      Swal.fire(
+        'Error',
+        'Please insert the value with the proper format MM:SS',
+        'error'
+      );
+    }
   }
 
   return (
@@ -26,7 +40,7 @@ function Header() {
         <div>
           <S.Input
             placeholder="02:30"
-            value={time || ''}
+            value={countdownValue || ''}
             onChange={
               (e: React.SyntheticEvent<HTMLInputElement>) => updateTime(e)
             }

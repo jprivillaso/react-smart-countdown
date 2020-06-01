@@ -1,16 +1,16 @@
 import React from 'react';
 
 import * as S from './styled';
-import { UserConsumer } from '../../hooks/useContext';
+import { UserConsumer } from '../../state/context';
 
 function App() {
   return (
     <UserConsumer>
-      {({ countdown }) => {
+      {({ countdownStatus }) => {
         return (
           <S.Body>
             <S.InfoText />
-            <S.Time>{ countdown ? 'T' : 'F' }</S.Time>
+            <S.Time>{ countdownStatus || '--:--' }</S.Time>
             <S.PauseIcon />
           </S.Body>
         )

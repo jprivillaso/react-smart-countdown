@@ -1,15 +1,22 @@
 import { useState, useCallback } from 'react';
-import { CountdownContext } from './useContext';
+import { StatusOrValueContext } from '../state/context';
 
-export const useCountdown = (): CountdownContext => {
-  const [countdown, setCountdown] = useState(false);
+export const useCountdown = (): StatusOrValueContext => {
+  const [countdownStatus, setStatus] = useState(false);
+  const [countdownValue, setValue] = useState('');
 
-  const setCurrentCountdown = useCallback((currentCountdown: boolean): void => {
-    setCountdown(currentCountdown);
+  const setCurrentStatus = useCallback((currentStatus: boolean): void => {
+    setStatus(currentStatus);
+  }, []);
+
+  const setCurrentValue = useCallback((currentValue: string): void => {
+    setValue(currentValue);
   }, []);
 
   return {
-    countdown,
-    setCurrentCountdown
+    countdownStatus,
+    setCurrentStatus,
+    countdownValue,
+    setCurrentValue
   }
 }

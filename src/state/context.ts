@@ -1,18 +1,26 @@
 import React from 'react'
 
+export enum Status {
+  Started = 'started',
+  HalfPassed = 'half-time',
+  Ended = 'ended'
+}
+
 export interface CountdownValueContext {
   countdownValue: string;
   setCurrentValue: (currentValue: string) => void
 }
 
-const initialContext = {
-  countdownValue: '',
-  setCurrentValue: () => {},
-};
+export interface CountdownStatusContext {
+  countdownStatus: Status;
+  setCurrentStatus: (currentStatus: Status) => void
+}
 
-const UserContext = React.createContext<CountdownValueContext>(initialContext);
+export type StateOrValueContext = CountdownValueContext | CountdownStatusContext | null;
 
-export const UserProvider = UserContext.Provider;
-export const UserConsumer = UserContext.Consumer;
+const CountdownContext = React.createContext<StateOrValueContext>(null);
 
-export default UserContext;
+export const UserProvider = CountdownContext.Provider;
+export const UserConsumer = CountdownContext.Consumer;
+
+export default CountdownContext;

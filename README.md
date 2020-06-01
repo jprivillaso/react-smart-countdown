@@ -14,6 +14,13 @@ This project aims to create a countdown timer using React. The main purpose is t
 $ npm start
 ```
 
+## Stack Used
+
+- React + Typescript
+- Styled-Components
+- Styled-Media-Queries
+- Jest/Enzyme
+
 ## Live version
 
 There's a live version of the app at [this link](www.google.com)

@@ -1,7 +1,6 @@
-export const handleInterval = (
-  countdownValue: string,
-  setCurrentValue: Function
-): void => {
+export const calculateNewTime = (
+  countdownValue: string
+): string => {
   const [ minutes, seconds ] = countdownValue.split(':');
 
   let minInt = parseInt(minutes);
@@ -16,9 +15,6 @@ export const handleInterval = (
 
   const newTime = `${minInt}`.padStart(2, '0')
     + ':' + `${secInt}`.padStart(2, '0');
-  setCurrentValue(newTime);
 
-  if (minInt === 0 && secInt === 0) {
-    console.log('Times up');
-  }
+  return newTime;
 }

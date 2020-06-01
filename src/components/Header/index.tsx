@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 
 import * as S from './styled';
-import { handleInterval } from './interval';
+import { calculateNewTime } from './interval';
 
 import UserContext from '../../state/context';
 import { isInputValid } from '../../commons/validateUserInput';
@@ -18,13 +18,30 @@ function Header() {
   useEffect(() => {
     if (!started) return;
 
-    const interval = setInterval(
-      () => handleInterval(countdownValue, setCurrentValue),
-      1000
-    );
+    const originalTime = parseInt(time.replace(':', ''));
+    const halfTime = originalTime / 2;
+    const endTime = 0;
+
+    const interval = setInterval(() => {
+      const newTime = calculateNewTime(countdownValue);
+      setCurrentValue(newTime);
+
+      // Update countdown visualization style
+      const newFormattedTime = parseInt(newTime.replace(':', ''));
+      if (newFormattedTime === halfTime) {
+        console.log('Half time');
+      } else if (newFormattedTime === endTime) {
+        // resets everything
+        console.log('Times up');
+        setStarted(false);
+        setCurrentValue('');
+        setTime('')
+      }
+
+    }, 1000);
 
     return () => clearInterval(interval);
-  }, [ countdownValue, setCurrentValue, started ]);
+  }, [ countdownValue, setCurrentValue, started, time ]);
 
   const startCountdown = () => {
     if (isInputValid(time)) {

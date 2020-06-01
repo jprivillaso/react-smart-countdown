@@ -5,8 +5,7 @@ import * as S from './styled';
 import { handleInterval } from './interval';
 
 import UserContext, { CountdownValueContext } from '../../state/context';
-
-const MM_SS_REGEX = /^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d))$/;
+import { isInputValid } from '../../commons/validateUserInput';
 
 function Header() {
   const {
@@ -16,9 +15,6 @@ function Header() {
 
   const [ started, setStarted ] = useState(false);
   const [ time, setTime ] = useState('');
-
-  const isInputValid = (currentValue: string): boolean =>
-    MM_SS_REGEX.test(currentValue) || true
 
   useEffect(() => {
     if (!started) return;
@@ -32,7 +28,7 @@ function Header() {
   }, [countdownValue, setCurrentValue, started]);
 
   const startCountdown = () => {
-    if (isInputValid(countdownValue)) {
+    if (isInputValid(time)) {
       setCurrentValue(time);
       setStarted(true);
     } else {

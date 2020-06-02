@@ -3,7 +3,7 @@ import React, { useContext, ReactElement } from 'react';
 import * as S from './styled';
 
 import { Horizontal } from '../../commons/styled';
-import { isNumeric } from '../../commons/validateUserInput';
+import { isNumeric } from '../../commons/utils';
 
 import {
   CountdownConsumer,

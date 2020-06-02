@@ -14,3 +14,10 @@ export const isInputValid = (currentValue: string): boolean =>
 
 export const isNumeric = (expression: string): boolean =>
   NUMBER_REGEX.test(expression);
+
+export const getSeconds = (
+  expression: string
+): number => {
+  const [ min, sec ] = expression.split(':');
+  return parseInt(sec) + (parseInt(min) * 60);
+};

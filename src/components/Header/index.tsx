@@ -9,7 +9,7 @@ import CountdownContext, {
   CountdownStatusContext,
   Status
 } from '../../state/context';
-import { isInputValid } from '../../commons/validateUserInput';
+import { isInputValid, getSeconds } from '../../commons/utils';
 
 function Header() {
   // shared state
@@ -27,8 +27,7 @@ function Header() {
       countdownStatus === Status.Stopped
     ) return;
 
-    const originalTime = parseInt(time.replace(':', ''));
-    const halfTime = originalTime / 2;
+    const halfTime = getSeconds(time) / 2;
     const endTime = 0;
 
     const interval = setInterval(() => {
@@ -36,13 +35,14 @@ function Header() {
       setCurrentValue(newTime);
 
       // Update countdown visualization style
-      const newFormattedTime = parseInt(newTime.replace(':', ''));
-      if (newFormattedTime === endTime) {
+      const newTimeInSecs = getSeconds(newTime);
+
+      if (newTimeInSecs === endTime) {
         // resets everything
         setCurrentStatus(Status.Ended);
         setCurrentValue('');
         setTime('')
-      } else if (newFormattedTime <= halfTime) {
+      } else if (newTimeInSecs <= halfTime) {
         setCurrentStatus(Status.HalfPassed);
       }
     }, 1000);

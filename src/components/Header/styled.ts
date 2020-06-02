@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 
 import {
-  mainColor
+  mainColor,
+  highlightText
 } from '../../commons/colors';
 
 export const Header = styled.header`
@@ -48,6 +49,7 @@ export const Button = styled.button`
   background: ${mainColor};
   border: none;
   font-size: 1em;
+  color: ${highlightText};
 
   &:hover {
     opacity: 0.7;

@@ -1,8 +1,11 @@
 import React from 'react'
 
-export interface CountdownStatusContext {
-  countdownStatus: boolean;
-  setCurrentStatus: (currentCountdown: boolean) => void;
+export enum Status {
+  Ended      = 'ended',
+  Paused     = 'paused',
+  Started    = 'started',
+  Stopped    = 'stopped',
+  HalfPassed = 'half-time'
 }
 
 export interface CountdownValueContext {
@@ -10,16 +13,16 @@ export interface CountdownValueContext {
   setCurrentValue: (currentValue: string) => void
 }
 
-const initialContext = {
-  countdownStatus: false,
-  setCurrentStatus: () => {},
-};
+export interface CountdownStatusContext {
+  countdownStatus: Status;
+  setCurrentStatus: (currentStatus: Status) => void
+}
 
-export type StatusOrValueContext = CountdownStatusContext | CountdownValueContext;
+export type StateOrValueContext = CountdownValueContext | CountdownStatusContext | null;
 
-const UserContext = React.createContext<StatusOrValueContext>(initialContext);
+const CountdownContext = React.createContext<StateOrValueContext>(null);
 
-export const UserProvider = UserContext.Provider;
-export const UserConsumer = UserContext.Consumer;
+export const CountdownProvider = CountdownContext.Provider;
+export const CountdownConsumer = CountdownContext.Consumer;
 
-export default UserContext;
+export default CountdownContext;

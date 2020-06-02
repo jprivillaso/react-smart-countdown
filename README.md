@@ -2,7 +2,9 @@
 
 This project aims to create a countdown timer using React. The main purpose is to see the latest React features used in a middle-sized components without side effects.
 
-![](./assets/countdown.gif)
+<p align="center">
+  ![](./assets/countdown.gif)
+</p>
 
 ## Features
 

@@ -5,6 +5,7 @@ import { Horizontal } from '../../commons/styled';
 
 import { UserConsumer, Status, CountdownStatusContext, StateOrValueContext, CountdownValueContext } from '../../state/context';
 import CountdownContext from '../../state/context';
+import { isNumeric } from '../../commons/validateUserInput';
 
 const getControlIcon = (
   countdownStatus: Status,
@@ -28,7 +29,7 @@ const getControlIcon = (
 
 const getInfoText = (
   countdownStatus: Status
-): ReactElement => {
+): string => {
   let text = '';
 
   if (countdownStatus === Status.HalfPassed) {
@@ -37,9 +38,7 @@ const getInfoText = (
     text = 'Time\'s up';
   }
 
-  return (
-    <S.InfoText>{ text }</S.InfoText>
-  );
+  return text;
 };
 
 function App() {
@@ -47,17 +46,26 @@ function App() {
     countdownStatus,
     setCurrentStatus
   } = useContext(CountdownContext) as CountdownStatusContext;
-
   return (
     <UserConsumer>
       {(props: StateOrValueContext) => {
+        const currentValue = (props as CountdownValueContext).countdownValue;
+        let textClass = 'default';
+
+        if (
+          isNumeric(currentValue.replace(':', '')) &&
+          parseInt(currentValue.replace(':', '')) < 20
+        ) {
+          textClass = 'warning';
+        }
+
         return (
           <S.Body>
-            { getInfoText(countdownStatus) }
+            <S.InfoText>{ getInfoText(countdownStatus) }</S.InfoText>
             <Horizontal>
-              <S.Time>
-                {(props as CountdownValueContext).countdownValue || '--:--'}
-              </S.Time>
+              <S.Time
+                className={ textClass }
+              >{ currentValue || '--:--' }</S.Time>
               { getControlIcon(countdownStatus, setCurrentStatus) }
             </Horizontal>
           </S.Body>

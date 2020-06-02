@@ -16,13 +16,17 @@ export const Body = styled.main`
 `;
 
 export const InfoText = styled.p`
-  color: ${errorColor}
+  color: ${errorColor};
 `;
 
 export const Time = styled.p`
   font-size: 10em;
   margin: 0;
   margin-right: 0.2em;
+
+  &.warning {
+    color: ${errorColor};
+  }
 
   ${media.lessThan("medium")`
     font-size: 7em;

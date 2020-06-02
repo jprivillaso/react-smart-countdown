@@ -4,7 +4,7 @@ import { StateOrValueContext, Status } from '../state/context';
 // Use this hook in order to keep the status and value from the countdown
 export const useCountdown = (): StateOrValueContext => {
   const [countdownValue, setValue] = useState('');
-  const [countdownStatus, setStatus] = useState(Status.Ended);
+  const [countdownStatus, setStatus] = useState(Status.Stopped);
 
   const setCurrentValue = useCallback((value: string): void => {
     setValue(value);

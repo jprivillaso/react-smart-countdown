@@ -20,7 +20,12 @@ function Header() {
   const [ time, setTime ] = useState('');
 
   useEffect(() => {
-    if (!countdownStatus || countdownStatus === Status.Ended) return;
+    if (
+      !countdownStatus ||
+      countdownStatus === Status.Ended ||
+      countdownStatus === Status.Paused ||
+      countdownStatus === Status.Stopped
+    ) return;
 
     const originalTime = parseInt(time.replace(':', ''));
     const halfTime = originalTime / 2;
@@ -32,13 +37,13 @@ function Header() {
 
       // Update countdown visualization style
       const newFormattedTime = parseInt(newTime.replace(':', ''));
-      if (newFormattedTime === halfTime) {
-        setCurrentStatus(Status.HalfPassed);
-      } else if (newFormattedTime === endTime) {
+      if (newFormattedTime === endTime) {
         // resets everything
         setCurrentStatus(Status.Ended);
         setCurrentValue('');
         setTime('')
+      } else if (newFormattedTime <= halfTime) {
+        setCurrentStatus(Status.HalfPassed);
       }
     }, 1000);
 

@@ -1,9 +1,11 @@
 import React from 'react'
 
 export enum Status {
-  Started = 'started',
-  HalfPassed = 'half-time',
-  Ended = 'ended'
+  Ended      = 'ended',
+  Paused     = 'paused',
+  Started    = 'started',
+  Stopped    = 'stopped',
+  HalfPassed = 'half-time'
 }
 
 export interface CountdownValueContext {

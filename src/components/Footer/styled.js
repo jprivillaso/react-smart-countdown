@@ -4,7 +4,8 @@ import media from 'styled-media-query';
 import {
   mainColor,
   mainBorderColor,
-  mainFontColor
+  mainFontColor,
+  highlightText
 } from '../../commons/colors';
 
 export const Footer = styled.footer`
@@ -18,15 +19,27 @@ export const SpeedControl = styled.div`
   font-size: 1em;
   margin: 0 1em;
   cursor: pointer;
+  box-sizing: border-box;
 
   &.active {
     background: ${mainColor};
     border: none;
-    color: black;
+
+    p {
+      color: ${highlightText};
+    }
   }
 
   &:hover {
     background: ${mainColor};
+
+    &:not(.active) {
+      border: solid 1px transparent;
+    }
+
+    p {
+      color: ${highlightText};
+    }
   }
 
   ${media.lessThan("small")`

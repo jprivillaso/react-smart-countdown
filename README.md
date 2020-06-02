@@ -1,6 +1,6 @@
 # React Smart Countdown
 
-This project aims to create a countdown timer using React. The main purpose is to see the latest React features used in a middle-sized components without side effects.
+This project aims to create a countdown timer using React. The main purpose is to see the latest React features, specially using hooks such as `useState` and `useContext` with a Provider pattern.
 
 <p align="center">
   <img width="auto" height="auto" src="https://media0.giphy.com/media/H1RnsoNMfy6BWKcEx6/giphy.gif">
@@ -8,9 +8,20 @@ This project aims to create a countdown timer using React. The main purpose is t
 
 ## Features
 
-1. The user must indicate a number that represent the starting point in minutes.
-2. The format to be used by the user is mm:ss
-3. The user can speed up or slow down the speed of the countdown
+1. Get notified when half time has passed
+2. Text becomes red when time is less than 20 seconds
+3. Text starts blikning when time is less than 10 seconds
+
+<p align="center">
+  <img width="auto" height="auto" src="https://media.giphy.com/media/Xxp0rn0ZepHYG5OME0/giphy.gif">
+</p>
+
+4. Speed control
+5. Pause/Resume functionality
+
+<p align="center">
+  <img width="auto" height="auto" src="https://media.giphy.com/media/gKxTs8fsZ4uzDmzEwg/giphy.gif">
+</p>
 
 ## Run the project locally
 

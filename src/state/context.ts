@@ -20,7 +20,7 @@ export interface ContextType {
 const initialState = {
   countdownValue: '',
   countdownStatus: Status.Stopped,
-  countdownSpeed: 1,
+  countdownSpeed: 1000,
   setCurrentValue: () => {},
   setCurrentStatus: () => {},
   setCurrentSpeed: () => {}

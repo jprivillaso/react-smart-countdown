@@ -5,7 +5,7 @@ import { ContextType, Status } from '../state/context';
 export const useCountdown = (): ContextType => {
   const [countdownValue, setValue] = useState('');
   const [countdownStatus, setStatus] = useState(Status.Stopped);
-  const [countdownSpeed, setSpeed] = useState(1);
+  const [countdownSpeed, setSpeed] = useState(1000);
 
   const setCurrentValue = useCallback((value: string): void => {
     setValue(value);

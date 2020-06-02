@@ -14,13 +14,15 @@ function Header() {
   // shared state
   const {
     countdownValue,
-    setCurrentValue,
     countdownStatus,
+    countdownSpeed,
+    setCurrentValue,
     setCurrentStatus
   } = useContext(CountdownContext) as ContextType;
 
   // local state
   const [ time, setTime ] = useState('');
+  const [ speed, setSpeed ] = useState(1000);
 
   useEffect(() => {
     if (
@@ -32,6 +34,13 @@ function Header() {
 
     const halfTime = getSeconds(time) / 2;
     const endTime = 0;
+
+    if (countdownSpeed !== speed) {
+      console.log('Update speed');
+      setSpeed(countdownSpeed);
+    }
+
+    console.log(speed);
 
     const interval = setInterval(() => {
       const newTime = calculateNewTime(countdownValue);
@@ -47,15 +56,18 @@ function Header() {
       } else if (newTimeInSecs <= halfTime) {
         setCurrentStatus(Status.HalfPassed);
       }
-    }, 500);
+    }, speed);
 
     return () => clearInterval(interval);
   }, [
     setCurrentValue,
     setCurrentStatus,
+    setSpeed,
     countdownValue,
     countdownStatus,
-    time
+    countdownSpeed,
+    time,
+    speed
   ]);
 
   const startCountdown = () => {

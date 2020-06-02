@@ -3,7 +3,7 @@
 This project aims to create a countdown timer using React. The main purpose is to see the latest React features used in a middle-sized components without side effects.
 
 <p align="center">
-  <img width="460" height="300" src="https://media0.giphy.com/media/H1RnsoNMfy6BWKcEx6/giphy.gif">
+  <img width="auto" height="auto" src="https://media0.giphy.com/media/H1RnsoNMfy6BWKcEx6/giphy.gif">
 </p>
 
 ## Features

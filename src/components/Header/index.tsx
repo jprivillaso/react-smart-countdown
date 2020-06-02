@@ -5,16 +5,19 @@ import * as S from './styled';
 import { calculateNewTime } from './interval';
 
 import CountdownContext, {
-  CountdownValueContext,
-  CountdownStatusContext,
+  ContextType,
   Status
 } from '../../state/context';
 import { isInputValid, getSeconds } from '../../commons/utils';
 
 function Header() {
   // shared state
-  const { countdownValue, setCurrentValue } = useContext(CountdownContext) as CountdownValueContext;
-  const { countdownStatus, setCurrentStatus } = useContext(CountdownContext) as CountdownStatusContext;
+  const {
+    countdownValue,
+    setCurrentValue,
+    countdownStatus,
+    setCurrentStatus
+  } = useContext(CountdownContext) as ContextType;
 
   // local state
   const [ time, setTime ] = useState('');
@@ -36,7 +39,6 @@ function Header() {
 
       // Update countdown visualization style
       const newTimeInSecs = getSeconds(newTime);
-
       if (newTimeInSecs === endTime) {
         // resets everything
         setCurrentStatus(Status.Ended);
@@ -45,7 +47,7 @@ function Header() {
       } else if (newTimeInSecs <= halfTime) {
         setCurrentStatus(Status.HalfPassed);
       }
-    }, 1000);
+    }, 500);
 
     return () => clearInterval(interval);
   }, [

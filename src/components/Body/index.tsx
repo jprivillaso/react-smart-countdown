@@ -50,21 +50,33 @@ function App() {
     <UserConsumer>
       {(props: StateOrValueContext) => {
         const countdownValue = (props as CountdownValueContext).countdownValue;
-        let textClass = 'default';
+        let className = 'default';
 
         if (
           isNumeric(countdownValue.replace(':', '')) &&
-          parseInt(countdownValue.replace(':', '')) < 20
+          parseInt(countdownValue.replace(':', '')) <= 20
         ) {
-          textClass = 'warning';
+          className = 'warning';
         }
+
+        if (
+          isNumeric(countdownValue.replace(':', '')) &&
+          parseInt(countdownValue.replace(':', '')) <= 10
+        ) {
+          className += ' blink';
+        }
+
+        const attributes = {
+          className,
+          blink: 0.5
+        };
 
         return (
           <S.Body>
             <S.InfoText>{ getInfoText(countdownStatus) }</S.InfoText>
             <Horizontal>
               <S.Time
-                className={ textClass }
+                {...attributes}
               >{ countdownValue || '--:--' }</S.Time>
               { getControlIcon(countdownStatus, setCurrentStatus) }
             </Horizontal>

@@ -28,6 +28,20 @@ export const Time = styled.p`
     color: ${errorColor};
   }
 
+  &.blink {
+    animation: ${
+      (props: any) => props.blink
+        ? `blinker ${props.blink}s linear infinite`
+        : 'blinker 1s linear infinite'
+    };
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+
   ${media.lessThan("medium")`
     font-size: 7em;
   `}

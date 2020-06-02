@@ -1,11 +1,18 @@
 import React, { useContext, ReactElement } from 'react';
 
 import * as S from './styled';
-import { Horizontal } from '../../commons/styled';
 
-import { UserConsumer, Status, CountdownStatusContext, StateOrValueContext, CountdownValueContext } from '../../state/context';
-import CountdownContext from '../../state/context';
+import { Horizontal } from '../../commons/styled';
 import { isNumeric } from '../../commons/validateUserInput';
+
+import {
+  CountdownConsumer,
+  Status,
+  CountdownStatusContext,
+  StateOrValueContext,
+  CountdownValueContext
+} from '../../state/context';
+import CountdownContext from '../../state/context';
 
 const getControlIcon = (
   countdownStatus: Status,
@@ -47,7 +54,7 @@ function App() {
     setCurrentStatus
   } = useContext(CountdownContext) as CountdownStatusContext;
   return (
-    <UserConsumer>
+    <CountdownConsumer>
       {(props: StateOrValueContext) => {
         const countdownValue = (props as CountdownValueContext).countdownValue;
         let className = 'default';
@@ -83,7 +90,7 @@ function App() {
           </S.Body>
         )
       }}
-    </UserConsumer>
+    </CountdownConsumer>
   );
 }
 

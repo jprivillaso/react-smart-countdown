@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import * as S from './styled';
 import { calculateNewTime } from './interval';
 
-import UserContext, {
+import CountdownContext, {
   CountdownValueContext,
   CountdownStatusContext,
   Status
@@ -13,8 +13,8 @@ import { isInputValid } from '../../commons/validateUserInput';
 
 function Header() {
   // shared state
-  const { countdownValue, setCurrentValue } = useContext(UserContext) as CountdownValueContext;
-  const { countdownStatus, setCurrentStatus } = useContext(UserContext) as CountdownStatusContext;
+  const { countdownValue, setCurrentValue } = useContext(CountdownContext) as CountdownValueContext;
+  const { countdownStatus, setCurrentStatus } = useContext(CountdownContext) as CountdownStatusContext;
 
   // local state
   const [ time, setTime ] = useState('');

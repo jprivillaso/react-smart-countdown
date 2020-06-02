@@ -22,7 +22,7 @@ export type StateOrValueContext = CountdownValueContext | CountdownStatusContext
 
 const CountdownContext = React.createContext<StateOrValueContext>(null);
 
-export const UserProvider = CountdownContext.Provider;
-export const UserConsumer = CountdownContext.Consumer;
+export const CountdownProvider = CountdownContext.Provider;
+export const CountdownConsumer = CountdownContext.Consumer;
 
 export default CountdownContext;

@@ -2,6 +2,8 @@
 
 This project aims to create a countdown timer using React. The main purpose is to see the latest React features used in a middle-sized components without side effects.
 
+![](./assets/countdown.gif)
+
 ## Features
 
 1. The user must indicate a number that represent the starting point in minutes.

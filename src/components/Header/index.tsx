@@ -5,19 +5,24 @@ import * as S from './styled';
 import { calculateNewTime } from './interval';
 
 import CountdownContext, {
-  CountdownValueContext,
-  CountdownStatusContext,
+  ContextType,
   Status
 } from '../../state/context';
 import { isInputValid, getSeconds } from '../../commons/utils';
 
 function Header() {
   // shared state
-  const { countdownValue, setCurrentValue } = useContext(CountdownContext) as CountdownValueContext;
-  const { countdownStatus, setCurrentStatus } = useContext(CountdownContext) as CountdownStatusContext;
+  const {
+    countdownValue,
+    countdownStatus,
+    countdownSpeed,
+    setCurrentValue,
+    setCurrentStatus
+  } = useContext(CountdownContext) as ContextType;
 
   // local state
   const [ time, setTime ] = useState('');
+  const [ speed, setSpeed ] = useState(1000);
 
   useEffect(() => {
     if (
@@ -30,13 +35,19 @@ function Header() {
     const halfTime = getSeconds(time) / 2;
     const endTime = 0;
 
+    if (countdownSpeed !== speed) {
+      console.log('Update speed');
+      setSpeed(countdownSpeed);
+    }
+
+    console.log(speed);
+
     const interval = setInterval(() => {
       const newTime = calculateNewTime(countdownValue);
       setCurrentValue(newTime);
 
       // Update countdown visualization style
       const newTimeInSecs = getSeconds(newTime);
-
       if (newTimeInSecs === endTime) {
         // resets everything
         setCurrentStatus(Status.Ended);
@@ -45,15 +56,18 @@ function Header() {
       } else if (newTimeInSecs <= halfTime) {
         setCurrentStatus(Status.HalfPassed);
       }
-    }, 1000);
+    }, speed);
 
     return () => clearInterval(interval);
   }, [
     setCurrentValue,
     setCurrentStatus,
+    setSpeed,
     countdownValue,
     countdownStatus,
-    time
+    countdownSpeed,
+    time,
+    speed
   ]);
 
   const startCountdown = () => {

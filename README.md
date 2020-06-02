@@ -1,6 +1,6 @@
 # React Smart Countdown
 
-This project aims to create a countdown timer using React. The main purpose is to see the latest React features, specially using hooks such as `useState` and `useContext` with a Provider pattern.
+This project aims to create a countdown timer using React. The main purpose is to see the latest React features, specially using hooks such as `useState` with a Context Provider pattern.
 
 <p align="center">
   <img width="auto" height="auto" src="https://media0.giphy.com/media/H1RnsoNMfy6BWKcEx6/giphy.gif">

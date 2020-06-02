@@ -7,10 +7,7 @@ import { isNumeric } from '../../commons/utils';
 
 import {
   CountdownConsumer,
-  Status,
-  CountdownStatusContext,
-  StateOrValueContext,
-  CountdownValueContext
+  Status
 } from '../../state/context';
 import CountdownContext from '../../state/context';
 
@@ -52,11 +49,10 @@ function App() {
   const {
     countdownStatus,
     setCurrentStatus
-  } = useContext(CountdownContext) as CountdownStatusContext;
+  } = useContext(CountdownContext);
   return (
     <CountdownConsumer>
-      {(props: StateOrValueContext) => {
-        const countdownValue = (props as CountdownValueContext).countdownValue;
+      {({ countdownValue }) => {
         let className = 'default';
 
         if (

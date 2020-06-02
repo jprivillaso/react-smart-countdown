@@ -8,19 +8,25 @@ export enum Status {
   HalfPassed = 'half-time'
 }
 
-export interface CountdownValueContext {
+export interface ContextType {
   countdownValue: string;
-  setCurrentValue: (currentValue: string) => void
-}
-
-export interface CountdownStatusContext {
   countdownStatus: Status;
-  setCurrentStatus: (currentStatus: Status) => void
+  countdownSpeed: number;
+  setCurrentValue: (currentValue: string) => void;
+  setCurrentStatus: (currentStatus: Status) => void;
+  setCurrentSpeed: (currentStatus: number) => void;
 }
 
-export type StateOrValueContext = CountdownValueContext | CountdownStatusContext | null;
+const initialState = {
+  countdownValue: '',
+  countdownStatus: Status.Stopped,
+  countdownSpeed: 1000,
+  setCurrentValue: () => {},
+  setCurrentStatus: () => {},
+  setCurrentSpeed: () => {}
+};
 
-const CountdownContext = React.createContext<StateOrValueContext>(null);
+const CountdownContext = React.createContext<ContextType>(initialState);
 
 export const CountdownProvider = CountdownContext.Provider;
 export const CountdownConsumer = CountdownContext.Consumer;

@@ -1,10 +1,11 @@
 import { useState, useCallback } from 'react';
-import { StateOrValueContext, Status } from '../state/context';
+import { ContextType, Status } from '../state/context';
 
 // Use this hook in order to keep the status and value from the countdown
-export const useCountdown = (): StateOrValueContext => {
+export const useCountdown = (): ContextType => {
   const [countdownValue, setValue] = useState('');
   const [countdownStatus, setStatus] = useState(Status.Stopped);
+  const [countdownSpeed, setSpeed] = useState(1000);
 
   const setCurrentValue = useCallback((value: string): void => {
     setValue(value);
@@ -14,10 +15,16 @@ export const useCountdown = (): StateOrValueContext => {
     setStatus(status);
   }, []);
 
+  const setCurrentSpeed = useCallback((speed: number): void => {
+    setSpeed(speed);
+  }, []);
+
   return {
     countdownValue,
     countdownStatus,
+    countdownSpeed,
     setCurrentValue,
-    setCurrentStatus
+    setCurrentStatus,
+    setCurrentSpeed
   }
 }

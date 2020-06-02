@@ -49,12 +49,12 @@ function App() {
   return (
     <UserConsumer>
       {(props: StateOrValueContext) => {
-        const currentValue = (props as CountdownValueContext).countdownValue;
+        const countdownValue = (props as CountdownValueContext).countdownValue;
         let textClass = 'default';
 
         if (
-          isNumeric(currentValue.replace(':', '')) &&
-          parseInt(currentValue.replace(':', '')) < 20
+          isNumeric(countdownValue.replace(':', '')) &&
+          parseInt(countdownValue.replace(':', '')) < 20
         ) {
           textClass = 'warning';
         }
@@ -65,7 +65,7 @@ function App() {
             <Horizontal>
               <S.Time
                 className={ textClass }
-              >{ currentValue || '--:--' }</S.Time>
+              >{ countdownValue || '--:--' }</S.Time>
               { getControlIcon(countdownStatus, setCurrentStatus) }
             </Horizontal>
           </S.Body>

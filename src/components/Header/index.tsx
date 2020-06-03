@@ -16,6 +16,30 @@ import CountdownContext from '../../state/context';
 const isRunning = (status: Status) =>
   [Status.Started, Status.HalfPassed].includes(status);
 
+const getNewStatusAndTime = ({
+  countdownValue,
+  countdownStatus,
+  time
+}: { countdownStatus: Status, countdownValue: string, time: string }) => {
+  const halfTime = getSeconds(time) / 2;
+
+  let newTime = calculateNewTime(countdownValue);
+  const newTimeInSecs = getSeconds(newTime);
+  let newStatus: Status = countdownStatus;
+
+  if (newTimeInSecs === 0) {
+    newStatus = Status.Ended;
+    newTime = '';
+  } else if (newTimeInSecs <= halfTime) {
+    newStatus = Status.HalfPassed;
+  }
+
+  return {
+    newStatus,
+    newTime
+  }
+}
+
 const updateCountdown = ({
   countdownValue,
   countdownStatus,
@@ -24,19 +48,12 @@ const updateCountdown = ({
   setCurrentValue,
   time
  }: UpdateCountdownParams) => {
-  const halfTime = getSeconds(time) / 2;
-
   return setInterval(() => {
-    let newTime = calculateNewTime(countdownValue);
-    const newTimeInSecs = getSeconds(newTime);
-    let newStatus: Status = countdownStatus;
-
-    if (newTimeInSecs === 0) {
-      newStatus = Status.Ended;
-      newTime = '';
-    } else if (newTimeInSecs <= halfTime) {
-      newStatus = Status.HalfPassed;
-    }
+    const { newStatus, newTime } = getNewStatusAndTime({
+      countdownStatus,
+      countdownValue,
+      time
+    });
 
     setCurrentStatus(newStatus);
     setCurrentValue(newTime);
@@ -71,16 +88,17 @@ function Header() {
   }, [ countdownValue, countdownStatus ]);
 
   const startCountdown = () => {
-    if (isInputValid(time)) {
-      setCurrentValue(time);
-      setCurrentStatus(Status.Started)
-    } else {
+    if (!isInputValid(time)) {
       Swal.fire(
         'Error',
         'Please insert the value with the proper format MM:SS',
         'error'
       );
+      return;
     }
+
+    setCurrentValue(time);
+    setCurrentStatus(Status.Started)
   }
 
   return (

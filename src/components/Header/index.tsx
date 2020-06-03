@@ -57,7 +57,7 @@ function Header() {
 
     return () => clearInterval(interval);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ countdownValue, countdownStatus, countdownSpeed ]);
+  }, [ countdownValue, countdownStatus ]);
 
   const startCountdown = () => {
     if (isInputValid(time)) {

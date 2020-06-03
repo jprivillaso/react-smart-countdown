@@ -38,7 +38,7 @@ $ npm start
 
 ## Live version
 
-There's a live version of the app at [this link](www.google.com)
+There's a live version of the app at [this link](https://react-smart-countdown.netlify.app/)
 
 ## Project's Kanban Flow
 

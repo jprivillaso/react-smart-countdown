@@ -5,12 +5,48 @@ import * as S from './styled';
 
 import { calculateNewTime } from './interval';
 import { isInputValid, getSeconds } from '../../commons/utils';
-import { Status, ContextType } from '../../commons/types';
+import {
+  Status,
+  ContextType,
+  UpdateCountdownParams
+} from '../../commons/types';
 
 import CountdownContext from '../../state/context';
 
+const isRunning = (status: Status) =>
+  [Status.Started, Status.HalfPassed].includes(status);
+
+const updateCountdown = ({
+  countdownValue,
+  countdownStatus,
+  setCurrentStatus,
+  setCurrentValue,
+  time,
+  speed
+ }: UpdateCountdownParams) => {
+  const halfTime = getSeconds(time) / 2;
+
+  return setInterval(() => {
+    let newTime = calculateNewTime(countdownValue);
+
+    // Update countdown visualization style
+    let newStatus: Status = countdownStatus;
+
+    const newTimeInSecs = getSeconds(newTime);
+    if (newTimeInSecs === 0) {
+      // resets everything
+      newStatus = Status.Ended;
+      newTime = '';
+    } else if (newTimeInSecs <= halfTime) {
+      newStatus = Status.HalfPassed;
+    }
+
+    setCurrentStatus(newStatus);
+    setCurrentValue(newTime);
+  }, speed);
+}
+
 function Header() {
-  // shared state
   const {
     countdownValue,
     countdownStatus,
@@ -19,41 +55,22 @@ function Header() {
     setCurrentStatus
   } = useContext(CountdownContext) as ContextType;
 
-  // local state
   const [ time, setTime ] = useState('');
   const [ speed, setSpeed ] = useState(1000);
 
   useEffect(() => {
-    if (
-      !countdownStatus ||
-      countdownStatus === Status.Ended ||
-      countdownStatus === Status.Paused ||
-      countdownStatus === Status.Stopped
-    ) return;
-
-    const halfTime = getSeconds(time) / 2;
-    const endTime = 0;
+    if (!isRunning(countdownStatus)) return;
 
     setSpeed(countdownSpeed);
 
-    const interval = setInterval(() => {
-      let newTime = calculateNewTime(countdownValue);
-
-      // Update countdown visualization style
-      let newStatus: Status = countdownStatus;
-
-      const newTimeInSecs = getSeconds(newTime);
-      if (newTimeInSecs === endTime) {
-        // resets everything
-        newStatus = Status.Ended;
-        newTime = '';
-      } else if (newTimeInSecs <= halfTime) {
-        newStatus = Status.HalfPassed;
-      }
-
-      setCurrentStatus(newStatus);
-      setCurrentValue(newTime);
-    }, speed);
+    const interval = updateCountdown({
+      countdownValue,
+      countdownStatus,
+      setCurrentStatus,
+      setCurrentValue,
+      time,
+      speed
+    });
 
     return () => clearInterval(interval);
   // eslint-disable-next-line react-hooks/exhaustive-deps

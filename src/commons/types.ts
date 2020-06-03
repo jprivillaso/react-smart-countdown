@@ -14,3 +14,12 @@ export interface ContextType {
   setCurrentStatus: (currentStatus: Status) => void;
   setCurrentSpeed: (currentStatus: number) => void;
 }
+
+export interface UpdateCountdownParams {
+  countdownValue: string,
+  countdownStatus: Status,
+  setCurrentStatus: Function,
+  setCurrentValue: Function,
+  time: string,
+  speed: number
+}

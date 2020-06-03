@@ -35,7 +35,6 @@ function Header() {
     const endTime = 0;
 
     if (countdownSpeed !== speed) {
-      console.log('Update speed');
       setSpeed(countdownSpeed);
     }
 
@@ -56,16 +55,8 @@ function Header() {
     }, speed);
 
     return () => clearInterval(interval);
-  }, [
-    setCurrentValue,
-    setCurrentStatus,
-    setSpeed,
-    countdownValue,
-    countdownStatus,
-    countdownSpeed,
-    time,
-    speed
-  ]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ countdownValue, countdownStatus, countdownSpeed ]);
 
   const startCountdown = () => {
     if (isInputValid(time)) {

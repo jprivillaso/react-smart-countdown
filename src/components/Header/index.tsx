@@ -98,7 +98,7 @@ function Header() {
     }
 
     setCurrentValue(time);
-    setCurrentStatus(Status.Started)
+    setCurrentStatus(Status.Started);
   }
 
   return (

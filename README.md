@@ -6,6 +6,10 @@ This project aims to create a countdown timer using React. The main purpose is t
   <img width="auto" height="auto" src="https://media0.giphy.com/media/H1RnsoNMfy6BWKcEx6/giphy.gif">
 </p>
 
+## Live DEMO
+
+There's a live version of the app at [this link](https://react-smart-countdown.netlify.app/)
+
 ## Features
 
 1. Get notified when half time has passed
@@ -35,10 +39,6 @@ $ npm start
 - Styled-Components
 - Styled-Media-Queries
 - Jest/Enzyme
-
-## Live version
-
-There's a live version of the app at [this link](https://react-smart-countdown.netlify.app/)
 
 ## Project's Kanban Flow
 

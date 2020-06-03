@@ -34,24 +34,25 @@ function Header() {
     const halfTime = getSeconds(time) / 2;
     const endTime = 0;
 
-    if (countdownSpeed !== speed) {
-      setSpeed(countdownSpeed);
-    }
+    setSpeed(countdownSpeed);
 
     const interval = setInterval(() => {
-      const newTime = calculateNewTime(countdownValue);
-      setCurrentValue(newTime);
+      let newTime = calculateNewTime(countdownValue);
 
       // Update countdown visualization style
+      let newStatus: Status = countdownStatus;
+
       const newTimeInSecs = getSeconds(newTime);
       if (newTimeInSecs === endTime) {
         // resets everything
-        setCurrentStatus(Status.Ended);
-        setCurrentValue('');
-        setTime('')
+        newStatus = Status.Ended;
+        newTime = '';
       } else if (newTimeInSecs <= halfTime) {
-        setCurrentStatus(Status.HalfPassed);
+        newStatus = Status.HalfPassed;
       }
+
+      setCurrentStatus(newStatus);
+      setCurrentValue(newTime);
     }, speed);
 
     return () => clearInterval(interval);

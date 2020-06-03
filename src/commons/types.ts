@@ -18,8 +18,8 @@ export interface ContextType {
 export interface UpdateCountdownParams {
   countdownValue: string,
   countdownStatus: Status,
+  countdownSpeed: number,
   setCurrentStatus: Function,
   setCurrentValue: Function,
-  time: string,
-  speed: number
+  time: string
 }

@@ -19,22 +19,19 @@ const isRunning = (status: Status) =>
 const updateCountdown = ({
   countdownValue,
   countdownStatus,
+  countdownSpeed,
   setCurrentStatus,
   setCurrentValue,
-  time,
-  speed
+  time
  }: UpdateCountdownParams) => {
   const halfTime = getSeconds(time) / 2;
 
   return setInterval(() => {
     let newTime = calculateNewTime(countdownValue);
-
-    // Update countdown visualization style
+    const newTimeInSecs = getSeconds(newTime);
     let newStatus: Status = countdownStatus;
 
-    const newTimeInSecs = getSeconds(newTime);
     if (newTimeInSecs === 0) {
-      // resets everything
       newStatus = Status.Ended;
       newTime = '';
     } else if (newTimeInSecs <= halfTime) {
@@ -43,7 +40,7 @@ const updateCountdown = ({
 
     setCurrentStatus(newStatus);
     setCurrentValue(newTime);
-  }, speed);
+  }, countdownSpeed);
 }
 
 function Header() {
@@ -56,20 +53,17 @@ function Header() {
   } = useContext(CountdownContext) as ContextType;
 
   const [ time, setTime ] = useState('');
-  const [ speed, setSpeed ] = useState(1000);
 
   useEffect(() => {
     if (!isRunning(countdownStatus)) return;
 
-    setSpeed(countdownSpeed);
-
     const interval = updateCountdown({
       countdownValue,
       countdownStatus,
+      countdownSpeed,
       setCurrentStatus,
       setCurrentValue,
-      time,
-      speed
+      time
     });
 
     return () => clearInterval(interval);

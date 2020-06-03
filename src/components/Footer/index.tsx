@@ -1,20 +1,29 @@
 import React, { useContext, useState } from 'react';
+import Swal from 'sweetalert2';
 
 import * as S from './styled';
+
 import {
   Horizontal
 } from '../../commons/styled';
-import CountdownContext, { Status } from '../../state/context';
-import Swal from 'sweetalert2';
+import { Status } from '../../commons/types';
+import {
+  COUNTER_SPEED_SLOW,
+  COUNTER_SPEED_MEDIUM,
+  COUNTER_SPEED_FAST,
+  ACTIVE_SPEED_CLASS
+} from '../../commons/constants';
+
+import CountdownContext from '../../state/context';
 
 function Footer() {
   const { setCurrentSpeed, countdownStatus } = useContext(CountdownContext);
-  const [ active, setActive ] = useState('1000');
+  const [ active, setActive ] = useState(COUNTER_SPEED_SLOW);
 
   const updateSpeedControl = (speed: number) => {
     if (countdownStatus === Status.Started || countdownStatus === Status.HalfPassed) {
       setCurrentSpeed(speed);
-      setActive(`${speed}`);
+      setActive(speed);
     } else {
       Swal.fire(
         'Error',
@@ -24,24 +33,26 @@ function Footer() {
     }
   };
 
+  console.log(active);
+
   return (
     <S.Footer>
       <Horizontal>
         <S.SpeedControl
-          className={active === '1000' ? 'active' : ''}
-          onClick={() => updateSpeedControl(1000)}
+          className={active === COUNTER_SPEED_SLOW ? ACTIVE_SPEED_CLASS : ''}
+          onClick={() => updateSpeedControl(COUNTER_SPEED_SLOW)}
         >
           <S.Text> 1X </S.Text>
         </S.SpeedControl>
         <S.SpeedControl
-          className={active === '600' ? 'active' : ''}
-          onClick={() => updateSpeedControl(600)}
+          className={active === COUNTER_SPEED_MEDIUM ? ACTIVE_SPEED_CLASS : ''}
+          onClick={() => updateSpeedControl(COUNTER_SPEED_MEDIUM)}
         >
           <S.Text>1.5X</S.Text>
         </S.SpeedControl>
         <S.SpeedControl
-          className={active === '400' ? 'active' : ''}
-          onClick={() => updateSpeedControl(400)}
+          className={active === COUNTER_SPEED_FAST ? ACTIVE_SPEED_CLASS : ''}
+          onClick={() => updateSpeedControl(COUNTER_SPEED_FAST)}
         >
           <S.Text>2X</S.Text>
         </S.SpeedControl>

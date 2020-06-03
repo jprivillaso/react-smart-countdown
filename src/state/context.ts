@@ -1,26 +1,11 @@
 import React from 'react'
-
-export enum Status {
-  Ended      = 'ended',
-  Paused     = 'paused',
-  Started    = 'started',
-  Stopped    = 'stopped',
-  HalfPassed = 'half-time'
-}
-
-export interface ContextType {
-  countdownValue: string;
-  countdownStatus: Status;
-  countdownSpeed: number;
-  setCurrentValue: (currentValue: string) => void;
-  setCurrentStatus: (currentStatus: Status) => void;
-  setCurrentSpeed: (currentStatus: number) => void;
-}
+import { Status, ContextType } from '../commons/types';
+import { COUNTER_SPEED_SLOW } from '../commons/constants';
 
 const initialState = {
   countdownValue: '',
   countdownStatus: Status.Stopped,
-  countdownSpeed: 1000,
+  countdownSpeed: COUNTER_SPEED_SLOW,
   setCurrentValue: () => {},
   setCurrentStatus: () => {},
   setCurrentSpeed: () => {}

@@ -2,13 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 
 import * as S from './styled';
-import { calculateNewTime } from './interval';
 
-import CountdownContext, {
-  ContextType,
-  Status
-} from '../../state/context';
+import { calculateNewTime } from './interval';
 import { isInputValid, getSeconds } from '../../commons/utils';
+import { Status, ContextType } from '../../commons/types';
+
+import CountdownContext from '../../state/context';
 
 function Header() {
   // shared state
@@ -39,8 +38,6 @@ function Header() {
       console.log('Update speed');
       setSpeed(countdownSpeed);
     }
-
-    console.log(speed);
 
     const interval = setInterval(() => {
       const newTime = calculateNewTime(countdownValue);

@@ -4,10 +4,10 @@ import * as S from './styled';
 
 import { Horizontal } from '../../commons/styled';
 import { isNumeric } from '../../commons/utils';
+import { Status } from '../../commons/types';
 
 import {
-  CountdownConsumer,
-  Status
+  CountdownConsumer
 } from '../../state/context';
 import CountdownContext from '../../state/context';
 

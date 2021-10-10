@@ -1,90 +1,70 @@
 import React, { useContext, ReactElement } from 'react';
 
-import * as S from './styled';
-
 import { Horizontal } from '../../commons/styled';
 import { isNumeric } from '../../commons/utils';
 import { Status } from '../../commons/types';
-
-import {
-  CountdownConsumer
-} from '../../state/context';
+import Time from '../Time';
+import Text from '../Text';
+import { StartIcon, PauseIcon } from '../Icons';
+import { CountdownConsumer } from '../../state/context';
 import CountdownContext from '../../state/context';
 
-const getControlIcon = (
-  countdownStatus: Status,
-  setCurrentStatus: Function
-): ReactElement => {
-  return (
-    countdownStatus === Status.Ended ||
-    countdownStatus === Status.Paused ?
-    (
-      <S.StartIcon
-        onClick={() => setCurrentStatus(Status.Started)}
-      />
-    ) :
-    (
-      <S.PauseIcon
-        onClick={() => setCurrentStatus(Status.Paused)}
-      />
-    )
-  )
+import * as S from './styled';
+
+const getControlIcon = (countdownStatus: Status, setCurrentStatus: Function): ReactElement => {
+  return countdownStatus === Status.Ended || countdownStatus === Status.Paused ? (
+    <StartIcon onClick={() => setCurrentStatus(Status.Started)} />
+  ) : (
+    <PauseIcon onClick={() => setCurrentStatus(Status.Paused)} />
+  );
 };
 
-const getInfoText = (
-  countdownStatus: Status
-): string => {
+const getInfoText = (countdownStatus: Status): string => {
   let text = '';
 
   if (countdownStatus === Status.HalfPassed) {
     text = 'More than halfway there!';
   } else if (countdownStatus === Status.Ended) {
-    text = 'Time\'s up';
+    text = "Time's up";
   }
 
   return text;
 };
 
 function App() {
-  const {
-    countdownStatus,
-    setCurrentStatus
-  } = useContext(CountdownContext);
+  const { countdownStatus, setCurrentStatus } = useContext(CountdownContext);
+
+  const parseCurrentValue = (value: string) => parseInt(value.replace(':', ''));
+
   return (
     <CountdownConsumer>
       {({ countdownValue }) => {
         let className = 'default';
 
-        if (
-          isNumeric(countdownValue.replace(':', '')) &&
-          parseInt(countdownValue.replace(':', '')) <= 20
-        ) {
+        // Less than 20 seconds
+        if (isNumeric(countdownValue.replace(':', '')) && parseCurrentValue(countdownValue) <= 20) {
           className = 'warning';
         }
 
-        if (
-          isNumeric(countdownValue.replace(':', '')) &&
-          parseInt(countdownValue.replace(':', '')) <= 10
-        ) {
+        // Less than 10 seconds
+        if (isNumeric(countdownValue.replace(':', '')) && parseCurrentValue(countdownValue) <= 10) {
           className += ' blink';
         }
 
         const attributes = {
           className,
-          blink: 0.5
+          blink: 0.5,
         };
 
         return (
           <S.Body>
-            <S.InfoText>{ getInfoText(countdownStatus) }</S.InfoText>
+            <Text error={true}>{getInfoText(countdownStatus)}</Text>
             <Horizontal>
-              <S.Time
-                {...attributes}
-              >{ countdownValue || '--:--' }</S.Time>
-              { getControlIcon(countdownStatus, setCurrentStatus) }
+              <Time {...attributes}>{countdownValue || '--:--'}</Time>
+              {getControlIcon(countdownStatus, setCurrentStatus)}
             </Horizontal>
           </S.Body>
-        )
+        );
       }}
     </CountdownConsumer>
   );

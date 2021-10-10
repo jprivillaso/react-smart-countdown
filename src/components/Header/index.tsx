@@ -1,123 +1,66 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+
+import Button from '../Button';
+import Input from '../Input';
+import Title from '../Title';
+import { isInputValid } from '../../commons/utils';
+import { getNewStatusAndTime } from '../../commons/timer';
+import { Vertical } from '../../commons/styled';
+import { Status, ContextType } from '../../commons/types';
+import CountdownContext from '../../state/context';
 
 import * as S from './styled';
 
-import { calculateNewTime } from './interval';
-import { isInputValid, getSeconds } from '../../commons/utils';
-import {
-  Status,
-  ContextType,
-  UpdateCountdownParams
-} from '../../commons/types';
-
-import CountdownContext from '../../state/context';
-
-const isRunning = (status: Status) =>
-  [Status.Started, Status.HalfPassed].includes(status);
-
-const getNewStatusAndTime = ({
-  countdownValue,
-  countdownStatus,
-  time
-}: { countdownStatus: Status, countdownValue: string, time: string }) => {
-  const halfTime = getSeconds(time) / 2;
-
-  let newTime = calculateNewTime(countdownValue);
-  const newTimeInSecs = getSeconds(newTime);
-  let newStatus: Status = countdownStatus;
-
-  if (newTimeInSecs === 0) {
-    newStatus = Status.Ended;
-    newTime = '';
-  } else if (newTimeInSecs <= halfTime) {
-    newStatus = Status.HalfPassed;
-  }
-
-  return {
-    newStatus,
-    newTime
-  }
-}
-
-const updateCountdown = ({
-  countdownValue,
-  countdownStatus,
-  countdownSpeed,
-  setCurrentStatus,
-  setCurrentValue,
-  time
- }: UpdateCountdownParams) => {
-  return setInterval(() => {
-    const { newStatus, newTime } = getNewStatusAndTime({
-      countdownStatus,
-      countdownValue,
-      time
-    });
-
-    setCurrentStatus(newStatus);
-    setCurrentValue(newTime);
-  }, countdownSpeed);
-}
+const isRunning = (status: Status) => [Status.Started, Status.HalfPassed].includes(status);
 
 function Header() {
-  const {
-    countdownValue,
-    countdownStatus,
-    countdownSpeed,
-    setCurrentValue,
-    setCurrentStatus
-  } = useContext(CountdownContext) as ContextType;
+  const { countdownValue, countdownStatus, countdownSpeed, setCurrentValue, setCurrentStatus } = useContext(
+    CountdownContext,
+  ) as ContextType;
 
-  const [ time, setTime ] = useState('');
+  const [time, setTime] = useState('');
 
   useEffect(() => {
     if (!isRunning(countdownStatus)) return;
 
-    const interval = updateCountdown({
-      countdownValue,
-      countdownStatus,
-      countdownSpeed,
-      setCurrentStatus,
-      setCurrentValue,
-      time
-    });
+    const interval = setInterval(() => {
+      const { newStatus, newTime } = getNewStatusAndTime({
+        countdownStatus,
+        countdownValue,
+        time,
+      });
+
+      setCurrentStatus(newStatus);
+      setCurrentValue(newTime);
+    }, countdownSpeed);
 
     return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ countdownValue, countdownStatus ]);
+  }, [countdownValue, countdownStatus, countdownSpeed, setCurrentStatus, setCurrentValue, time]);
 
   const startCountdown = () => {
     if (!isInputValid(time)) {
-      Swal.fire(
-        'Error',
-        'Please insert the value with the proper format MM:SS',
-        'error'
-      );
+      Swal.fire('Error', 'Please insert a value with the proper format MM:SS', 'error');
       return;
     }
 
     setCurrentValue(time);
     setCurrentStatus(Status.Started);
-  }
+  };
 
   return (
     <S.Header>
-      <S.Vertical>
-        <S.Text>Smart Countdown</S.Text>
+      <Vertical>
+        <Title>Smart Countdown</Title>
         <div>
-          <S.Input
-            placeholder="02:30"
-            value={ time || '' }
-            onChange={
-              (e: React.SyntheticEvent<HTMLInputElement>) => setTime(`${ e.currentTarget.value }`)
-            }
-          ></S.Input>
-          <S.Button
-            onClick={() => startCountdown()}
-          >Start</S.Button>
+          <Input
+            placeholder="01:00"
+            value={time || ''}
+            onChange={(e: React.SyntheticEvent<HTMLInputElement>) => setTime(`${e.currentTarget.value}`)}
+          ></Input>
+          <Button onClick={() => startCountdown()}>Start</Button>
         </div>
-      </S.Vertical>
+      </Vertical>
     </S.Header>
   );
 }

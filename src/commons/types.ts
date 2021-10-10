@@ -1,9 +1,9 @@
 export enum Status {
-  Ended      = 'ended',
-  Paused     = 'paused',
-  Started    = 'started',
-  Stopped    = 'stopped',
-  HalfPassed = 'half-time'
+  Ended = 'ended',
+  Paused = 'paused',
+  Started = 'started',
+  Stopped = 'stopped',
+  HalfPassed = 'half-time',
 }
 
 export interface ContextType {
@@ -16,10 +16,10 @@ export interface ContextType {
 }
 
 export interface UpdateCountdownParams {
-  countdownValue: string,
-  countdownStatus: Status,
-  countdownSpeed: number,
-  setCurrentStatus: Function,
-  setCurrentValue: Function,
-  time: string
+  countdownValue: string;
+  countdownStatus: Status;
+  countdownSpeed: number;
+  setCurrentStatus: Function;
+  setCurrentValue: Function;
+  time: string;
 }

@@ -5,3 +5,8 @@ export const Horizontal = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const Vertical = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import { ContextType, Status } from '../commons/types';
 import { COUNTER_SPEED_SLOW } from '../commons/constants';
 
-// Use this hook in order to keep the status and value from the countdown
+// Use this hook in order to keep the countdown's status and value
 export const useCountdown = (): ContextType => {
   const [countdownValue, setValue] = useState('');
   const [countdownStatus, setStatus] = useState(Status.Stopped);
@@ -27,6 +27,6 @@ export const useCountdown = (): ContextType => {
     countdownSpeed,
     setCurrentValue,
     setCurrentStatus,
-    setCurrentSpeed
-  }
-}
+    setCurrentSpeed,
+  };
+};

@@ -13,7 +13,7 @@ function App() {
   const countdown = useCountdown();
 
   return (
-    <CountdownProvider value={ countdown }>
+    <CountdownProvider value={countdown}>
       <S.Main>
         <Header />
         <Body />

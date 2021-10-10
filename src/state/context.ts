@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Status, ContextType } from '../commons/types';
 import { COUNTER_SPEED_SLOW } from '../commons/constants';
 
@@ -8,7 +8,7 @@ const initialState = {
   countdownSpeed: COUNTER_SPEED_SLOW,
   setCurrentValue: () => {},
   setCurrentStatus: () => {},
-  setCurrentSpeed: () => {}
+  setCurrentSpeed: () => {},
 };
 
 const CountdownContext = React.createContext<ContextType>(initialState);

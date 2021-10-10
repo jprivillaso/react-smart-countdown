@@ -9,15 +9,13 @@ import { getNewStatusAndTime } from '../../commons/timer';
 import { Vertical } from '../../commons/styled';
 import { Status, ContextType } from '../../commons/types';
 import CountdownContext from '../../state/context';
-
 import * as S from './styled';
 
 const isRunning = (status: Status) => [Status.Started, Status.HalfPassed].includes(status);
 
 function Header() {
-  const { countdownValue, countdownStatus, countdownSpeed, setCurrentValue, setCurrentStatus } = useContext(
-    CountdownContext,
-  ) as ContextType;
+  const { countdownValue, countdownStatus, countdownSpeed, setCurrentValue, setCurrentStatus } =
+    useContext(CountdownContext) as ContextType;
 
   const [time, setTime] = useState('');
 
@@ -56,11 +54,11 @@ function Header() {
           <Input
             placeholder="01:00"
             value={time || ''}
-            onChange={(e: React.SyntheticEvent<HTMLInputElement>) => setTime(`${e.currentTarget.value}`)}
+            onChange={(e: React.SyntheticEvent<HTMLInputElement>) =>
+              setTime(`${e.currentTarget.value}`)
+            }
           ></Input>
-          <Button onClick={() => startCountdown()}>
-            {!countdownValue ? 'Start': 'Reset'}
-          </Button>
+          <Button onClick={() => startCountdown()}>{!countdownValue ? 'Start' : 'Reset'}</Button>
         </div>
       </Vertical>
     </S.Header>

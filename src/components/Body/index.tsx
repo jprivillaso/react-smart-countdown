@@ -1,4 +1,4 @@
-import React, { useContext, ReactElement } from 'react';
+import { useContext, ReactElement } from 'react';
 
 import { Horizontal } from '../../commons/styled';
 import { isNumeric } from '../../commons/utils';
@@ -6,12 +6,14 @@ import { Status } from '../../commons/types';
 import Time from '../Time';
 import Text from '../Text';
 import { StartIcon, PauseIcon } from '../Icons';
-import { CountdownConsumer } from '../../state/context';
-import CountdownContext from '../../state/context';
-
+import CountdownContext, { CountdownConsumer } from '../../state/context';
 import * as S from './styled';
 
-const getControlIcon = (countdownValue: string, countdownStatus: Status, setCurrentStatus: Function): ReactElement => {
+const getControlIcon = (
+  countdownValue: string,
+  countdownStatus: Status,
+  setCurrentStatus: (currentStatus: Status) => void,
+): ReactElement => {
   if (!countdownValue) {
     return <></>;
   }
@@ -38,7 +40,7 @@ const getInfoText = (countdownStatus: Status): string => {
 function App() {
   const { countdownStatus, setCurrentStatus } = useContext(CountdownContext);
 
-  const parseCurrentValue = (value: string) => parseInt(value.replace(':', ''));
+  const parseCurrentValue = (value: string) => parseInt(value.replace(':', ''), 10);
 
   return (
     <CountdownConsumer>

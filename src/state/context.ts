@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
+
 import { Status, ContextType } from '../commons/types';
-import { COUNTER_SPEED_SLOW } from '../commons/constants';
+import { SPEED_SLOW } from '../commons/constants';
 
 const initialState = {
   countdownValue: '',
   countdownStatus: Status.Stopped,
-  countdownSpeed: COUNTER_SPEED_SLOW,
+  countdownSpeed: SPEED_SLOW,
   setCurrentValue: () => {},
   setCurrentStatus: () => {},
   setCurrentSpeed: () => {},

@@ -4,6 +4,10 @@ import media from 'styled-media-query';
 import Text from '../Text';
 import { errorColor } from '../../commons/colors';
 
+type TimeProps = {
+  blink?: number;
+};
+
 const Time = styled(Text)`
   font-size: 10em;
   margin: 0;
@@ -14,7 +18,7 @@ const Time = styled(Text)`
   }
 
   &.blink {
-    animation: ${(props: any) =>
+    animation: ${(props: TimeProps) =>
       props.blink ? `blinker ${props.blink}s linear infinite` : 'blinker 1s linear infinite'};
   }
 

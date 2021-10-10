@@ -58,7 +58,9 @@ function Header() {
             value={time || ''}
             onChange={(e: React.SyntheticEvent<HTMLInputElement>) => setTime(`${e.currentTarget.value}`)}
           ></Input>
-          <Button onClick={() => startCountdown()}>Start</Button>
+          <Button onClick={() => startCountdown()}>
+            {!countdownValue ? 'Start': 'Reset'}
+          </Button>
         </div>
       </Vertical>
     </S.Header>

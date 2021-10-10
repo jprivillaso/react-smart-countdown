@@ -11,7 +11,11 @@ import CountdownContext from '../../state/context';
 
 import * as S from './styled';
 
-const getControlIcon = (countdownStatus: Status, setCurrentStatus: Function): ReactElement => {
+const getControlIcon = (countdownValue: string, countdownStatus: Status, setCurrentStatus: Function): ReactElement => {
+  if (!countdownValue) {
+    return <></>;
+  }
+
   return countdownStatus === Status.Ended || countdownStatus === Status.Paused ? (
     <StartIcon onClick={() => setCurrentStatus(Status.Started)} />
   ) : (
@@ -61,7 +65,7 @@ function App() {
             <Text error={true}>{getInfoText(countdownStatus)}</Text>
             <Horizontal>
               <Time {...attributes}>{countdownValue || '--:--'}</Time>
-              {getControlIcon(countdownStatus, setCurrentStatus)}
+              {getControlIcon(countdownValue, countdownStatus, setCurrentStatus)}
             </Horizontal>
           </S.Body>
         );

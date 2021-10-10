@@ -1,5 +1,6 @@
 import Text from '../Text';
 import { SPEED_SLOW, SPEED_MEDIUM, SPEED_FAST, ACTIVE_SPEED_CLASS } from '../../commons/constants';
+import { SpeedControlProps } from './SpeedControl.types';
 import * as S from './styled';
 
 const getTextBySpeed = (speed: number): string => {
@@ -12,12 +13,6 @@ const getTextBySpeed = (speed: number): string => {
     default:
       return '1X';
   }
-};
-
-type SpeedControlProps = {
-  speed: number;
-  onClick: (currSpeed: number) => void;
-  active: number;
 };
 
 const SpeedControl: React.FC<SpeedControlProps> = ({ speed, onClick, active }) => (

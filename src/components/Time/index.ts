@@ -2,25 +2,17 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 
 import Text from '../Text';
-import { errorColor } from '../../commons/colors';
-
-type TimeProps = {
-  blink?: number;
-};
+import { TimeProps } from './Time.types';
+import { errorColor, mainFontColor } from '../../commons/colors';
 
 const Time = styled(Text)`
   font-size: 10em;
   margin: 0;
   margin-right: 0.2em;
 
-  &.warning {
-    color: ${errorColor};
-  }
-
-  &.blink {
-    animation: ${(props: TimeProps) =>
-      props.blink ? `blinker ${props.blink}s linear infinite` : 'blinker 1s linear infinite'};
-  }
+  color: ${(props: TimeProps) => (props.warning ? errorColor : mainFontColor)};
+  animation: ${(props: TimeProps) =>
+    props.blink ? `blinker ${props.blinkSpeed}s linear infinite` : 'none'};
 
   @keyframes blinker {
     50% {

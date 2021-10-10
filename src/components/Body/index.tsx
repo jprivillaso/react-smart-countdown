@@ -5,6 +5,7 @@ import { isNumeric } from '../../commons/utils';
 import { Status } from '../../commons/types';
 import Time from '../Time';
 import Text from '../Text';
+import { TimeProps } from '../Time/Time.types';
 import { StartIcon, PauseIcon } from '../Icons';
 import CountdownContext, { CountdownConsumer } from '../../state/context';
 import * as S from './styled';
@@ -45,22 +46,19 @@ function App() {
   return (
     <CountdownConsumer>
       {({ countdownValue }) => {
-        let className = 'default';
+        const attributes: TimeProps = {
+          blinkSpeed: 0.5,
+        };
 
         // Less than 20 seconds
         if (isNumeric(countdownValue.replace(':', '')) && parseCurrentValue(countdownValue) <= 20) {
-          className = 'warning';
+          attributes.warning = true;
         }
 
         // Less than 10 seconds
         if (isNumeric(countdownValue.replace(':', '')) && parseCurrentValue(countdownValue) <= 10) {
-          className += ' blink';
+          attributes.blink = true;
         }
-
-        const attributes = {
-          className,
-          blink: 0.5,
-        };
 
         return (
           <S.Body>
